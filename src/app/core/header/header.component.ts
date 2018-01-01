@@ -10,6 +10,8 @@ import {AuthService} from '../../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
+  public isCollapsed = false;
+
   constructor(private dataStore: DataStorageService
   , public authService: AuthService) { }
 

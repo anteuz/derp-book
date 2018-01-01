@@ -1,27 +1,34 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a routerLink="/" style="cursor: pointer;" class="navbar-brand">dERP Book </a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
-        <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <ng-template [ngIf]="!authService.isAuthenticated()">
-          <li><a routerLink="/signup">Register</a></li>
-          <li><a routerLink="/signin">Login</a></li>
-        </ng-template>
-        <li *ngIf="authService.isAuthenticated()"><a style="cursor: pointer;" (click)="onLogout()">Logout</a></li>
-        <li class="dropdown" appDropdown *ngIf="authService.isAuthenticated()">
-          <a style="cursor: pointer;" class="dropdown-toggle" role="button">Manage <span class="caret"></span> </a>
-          <ul class="dropdown-menu">
-            <li><a style="cursor: pointer;" (click)="onSave()">Save</a></li>
-            <li><a style="cursor: pointer;" (click)="onFetch()">Fetch</a></li>
-          </ul>
-        </li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a routerLink="/" style="cursor: pointer;" class="navbar-brand">dERP Book </a>
+  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup" [ngbCollapse]="isCollapsed">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/recipes">Recipes</a>
+      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/shopping-list">Shopping list</a>
+
+      <ng-template [ngIf]="!authService.isAuthenticated()">
+        <a class="nav-item nav-link" routerLink="/signup">Register</a>
+        <a class="nav-item nav-link" routerLink="/signin">Login</a>
+      </ng-template>
+
+      <ng-template [ngIf]="authService.isAuthenticated()">
+        <a class="nav-item nav-link" (click)="onLogout()">Logout</a>
+        <!--<div class="row">-->
+          <!--<div class="col">-->
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Manage</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item" (click)="onSave()">Save</button>
+                <button class="dropdown-item" (click)="onFetch()">Fetch</button>
+              </div>
+            </div>
+          <!--</div>-->
+        <!--</div>-->
+      </ng-template>
     </div>
   </div>
 </nav>
+

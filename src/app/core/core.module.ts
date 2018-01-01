@@ -1,3 +1,4 @@
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HeaderComponent} from './header/header.component';
 import {HomeComponent} from './home/home.component';
 import {AppRoutingModule} from '../app-routing.module';
@@ -16,7 +17,8 @@ import {AuthService} from '../auth/auth.service';
   ],
   imports: [
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   exports: [
     AppRoutingModule,
