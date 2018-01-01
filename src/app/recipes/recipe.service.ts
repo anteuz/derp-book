@@ -1,9 +1,6 @@
 import {Recipe} from './recipe.model';
-import {Ingredient} from '../shared/ingredient.model';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -13,11 +10,13 @@ export class RecipeService {
 
   private recipes: Recipe[] = [];
 
-  constructor() {}
+  constructor() {
+  }
 
   getRecipes() {
     return this.recipes.slice();
   }
+
   getRecipe(id: number) {
     return this.recipes[id];
   }
