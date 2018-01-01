@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   public isCollapsed = false;
 
-  constructor(private dataStore: DataStorageService
+  constructor(privatgite dataStore: DataStorageService
   , public authService: AuthService) { }
 
   ngOnInit() {
