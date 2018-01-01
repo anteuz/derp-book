@@ -10,9 +10,9 @@ import {AuthService} from '../../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  public isCollapsed = false;
+  private isCollapsed = false;
 
-  constructor(privatgite dataStore: DataStorageService
+  constructor(private dataStore: DataStorageService
   , public authService: AuthService) { }
 
   ngOnInit() {
@@ -31,5 +31,20 @@ export class HeaderComponent implements OnInit {
   }
   onLogout() {
     this.authService.logout();
+  }
+
+
+
+
+  onCollapse() {
+    if (this.isCollapsed) {
+      this.isCollapsed = false;
+    } else {
+      this.isCollapsed = true;
+    }
+    console.log(this.isCollapsed);
+  }
+  getCollapseIn() {
+    return this.isCollapsed ? 'in' : '';
   }
 }

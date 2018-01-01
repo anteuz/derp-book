@@ -9,7 +9,7 @@ import {Dropdown2Directive} from './dropdown2.directive';
     Dropdown2Directive
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     CommonModule,
