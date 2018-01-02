@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Recipe} from '../recipes/recipe.model';
 import {RecipeService} from '../recipes/recipe.service';
@@ -10,25 +10,29 @@ export class DataStorageService {
   constructor(private http: HttpClient, private recipeService: RecipeService, private authService: AuthService) { }
 
   saveRecipeData() {
+
     const token = this.authService.getToken();
-    return this.http.put(
-      'https://derp-kitchen-erp.firebaseio.com/derp.json?auth=' + token,
+/*    return this.http.put(
+      'https://derp-kitchen-erp.firebaseio.com/derp.json',
       this.recipeService.getRecipes(),
       {
         observe: 'body',
-        headers: new HttpHeaders().append('OwnSuperSecretHeader', 'Batman')
+        params: new HttpParams().append('auth', token)
       }
+    );*/
+
+    const req = new HttpRequest(
+      'PUT',
+      'https://derp-kitchen-erp.firebaseio.com/derp.json',
+      this.recipeService.getRecipes()
     );
+    return this.http.request(req);
   }
 
   fetchRecipeData() {
     const token = this.authService.getToken();
     return this.http.get<Recipe[]>(
-      'https://derp-kitchen-erp.firebaseio.com/derp.json?auth=' + token,
-      {
-        observe: 'body',
-        responseType: 'json'
-      }
+      'https://derp-kitchen-erp.firebaseio.com/derp.json'
     ).map (
       (recipes: Recipe[]) => {
         for (const recipe of recipes) {
