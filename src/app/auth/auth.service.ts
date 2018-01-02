@@ -13,6 +13,7 @@ export class AuthService {
       .catch(
         error => console.log(error)
       );
+    this.router.navigate(['/signin']);
   }
 
   signinUser(email: string, password: string) {
@@ -29,11 +30,13 @@ export class AuthService {
       .catch(
         error => console.log(error)
     );
+    this.router.navigate(['/recipes']);
   }
 
   logout() {
     firebase.auth().signOut();
     this.token = null;
+    this.router.navigate(['/']);
   }
 
   getToken() {
