@@ -1,7 +1,11 @@
-import {HttpEvent, HttpEventType} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+import {Observable} from 'rxjs/Observable';
+import * as AuthActions from '../../auth/store/auth.actions';
+import {Router} from '@angular/router';
 import {DataStorageService} from '../../shared/data-storage.service';
-import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +14,15 @@ import {AuthService} from '../../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  private isCollapsed = false;
+  public isCollapsed = false;
 
-  constructor(private dataStore: DataStorageService
-  , public authService: AuthService) { }
+  authState: Observable<fromAuth.State>;
+
+  constructor(private dataStore: DataStorageService,
+              private store: Store<fromApp.AppState>, private router: Router) { }
 
   ngOnInit() {
+    this.authState = this.store.select('auth');
   }
 
   onSave() {
@@ -30,11 +37,8 @@ export class HeaderComponent implements OnInit {
     this.dataStore.fetchRecipeData();
   }
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch(new AuthActions.TryLogout());
   }
-
-
-
 
   onCollapse() {
     if (this.isCollapsed) {

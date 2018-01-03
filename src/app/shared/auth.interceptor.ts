@@ -1,7 +1,11 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AuthService} from '../auth/auth.service';
+import {Store} from '@ngrx/store';
+import * as fromApp from '../store/app.reducers';
+import * as fromAuth from '../auth/store/auth.reducers';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/take';
 
 /*
  * This class is used to intercept the HTTP Requests with authentication token (JWT)
@@ -10,14 +14,15 @@ import {AuthService} from '../auth/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<fromApp.AppState>) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const reqClone = req.clone({
-      params: req.params.append('auth', this.authService.getToken())
+    return this.store.select('auth')
+      .take(1)
+      .switchMap((authState: fromAuth.State) => {
+      const reqClone = req.clone({params: req.params.set('auth', authState.token)});
+      return next.handle(reqClone);
     });
-
-    return next.handle(reqClone);
   }
 }

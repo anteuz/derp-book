@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Form, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RecipeService} from '../recipe.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onAddIngredient() {
-    (<FormArray>this.recipeForm.get('ingredients')).push(
+    (<FormArray>this.recipeForm.get('shoppingListState')).push(
       new FormGroup({
         'name': new FormControl(null, Validators.required),
         'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
@@ -50,7 +50,7 @@ export class RecipeEditComponent implements OnInit {
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
-      if (recipe['ingredients']) {
+      if (recipe['shoppingListState']) {
         for (const ingredient of recipe.ingredients) {
           recipeIngredients.push(
             new FormGroup({
@@ -85,10 +85,10 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onDeleteIngredient(index: number) {
-    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+    (<FormArray>this.recipeForm.get('shoppingListState')).removeAt(index);
   }
 
   getControls() {
-    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+    return (<FormArray>this.recipeForm.get('shoppingListState')).controls;
   }
 }
