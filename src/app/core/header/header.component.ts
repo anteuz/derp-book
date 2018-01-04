@@ -5,7 +5,7 @@ import * as fromAuth from '../../auth/store/auth.reducers';
 import {Observable} from 'rxjs/Observable';
 import * as AuthActions from '../../auth/store/auth.actions';
 import {Router} from '@angular/router';
-import {DataStorageService} from '../../shared/data-storage.service';
+import * as RecipeActions from '../../recipes/store/recipe.actions';
 
 @Component({
   selector: 'app-header',
@@ -18,24 +18,21 @@ export class HeaderComponent implements OnInit {
 
   authState: Observable<fromAuth.State>;
 
-  constructor(private dataStore: DataStorageService,
-              private store: Store<fromApp.AppState>, private router: Router) { }
+  constructor(private store: Store<fromApp.AppState>, private router: Router) { }
 
   ngOnInit() {
     this.authState = this.store.select('auth');
   }
 
   onSave() {
-    this.dataStore.saveRecipeData().subscribe(
-      (response) => {
-        console.log(response);
-      }
-    );
+    this.store.dispatch(new RecipeActions.StoreRecipes());
   }
 
   onFetch() {
-    this.dataStore.fetchRecipeData();
+    this.store.dispatch(new RecipeActions.FetchRecipes());
+
   }
+
   onLogout() {
     this.store.dispatch(new AuthActions.TryLogout());
   }
@@ -48,6 +45,7 @@ export class HeaderComponent implements OnInit {
     }
     console.log(this.isCollapsed);
   }
+
   getCollapseIn() {
     return this.isCollapsed ? 'in' : '';
   }
