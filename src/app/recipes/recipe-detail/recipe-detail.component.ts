@@ -5,6 +5,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
 import {Observable} from 'rxjs/Observable';
 import * as fromRecipe from '../store/recipe.reducers';
 import * as RecipeActions from '../store/recipe.actions';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-recipe-detail',

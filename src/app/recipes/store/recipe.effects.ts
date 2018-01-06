@@ -7,6 +7,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/withLatestFrom';
 import {Store} from '@ngrx/store';
 import * as fromRecipe from '../store/recipe.reducers';
+import 'rxjs/add/operator/map';
 @Injectable()
 export class RecipeEffects {
   @Effect()
