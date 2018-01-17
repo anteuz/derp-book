@@ -1,7 +1,8 @@
 import {Recipe} from '../recipe.model';
-import {Ingredient} from '../../shared/ingredient.model';
+import {ColorPalette, Ingredient} from '../../shared/ingredient.model';
 import * as RecipeActions from '../store/recipe.actions';
 import * as fromApp from '../../store/app.reducers';
+import {IngredientAmountType, RecipeIngredient} from '../../shared/recipeIngredient.model';
 
 export interface FeatureState extends fromApp.AppState {
   recipes: State;
@@ -18,8 +19,8 @@ const initialState: State = {
       'A super tasty italian style pasta',
       'http://www.seriouseats.com/images/2017/03/20170306-fast-pasta-recipes-roundup-01.jpg',
       [
-        new Ingredient('Pasta', 100),
-        new Ingredient('Parmesan cheese', 50)
+        new RecipeIngredient(new Ingredient('Pasta', 'COLOR1'), 10, 'PCT'),
+        new RecipeIngredient(new Ingredient('Tomato sauce', 'COLOR4'), 2, 'PCT')
       ]
     )
   ]

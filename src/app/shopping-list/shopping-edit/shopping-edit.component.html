@@ -25,6 +25,18 @@
             pattern="^[1-9]+[0-9]*$"
           >
         </div>
+        <div class="col-sm-2">
+          <label for="amountType">Amount type</label>
+          <select
+            id="amountType"
+            class="form-control"
+            name="amountType"
+            ngModel
+            required
+          >
+            <option *ngFor="let item of ingredientAmountTypes | keys" [value]="item.key">{{item.value}}</option>
+          </select>
+        </div>
       </div>
       <div class="row">
         <div class="col-xs-12">

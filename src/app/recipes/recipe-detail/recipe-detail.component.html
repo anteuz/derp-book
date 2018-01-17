@@ -30,9 +30,9 @@
 </div>
 <div class="row">
   <div class="col-xs-12" >
-    <ul class="list-group-item" style="margin-top: 10px;"
+    <ul class="list-group-item" style="margin-top: 10px;" [style.border-left]="getStyle(ingredient.ingredient.ingredientColor)"
     *ngFor="let ingredient of (recipeState | async).recipes[id].ingredients">
-      {{ ingredient.name }} - {{ ingredient.amount }}
+      {{ ingredient.ingredient.ingredientName }} - ({{ ingredient.amount }} {{ingredientAmountTypes[ingredient.amountType]}})
     </ul>
   </div>
 </div>

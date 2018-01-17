@@ -21,5 +21,6 @@ export class SigninComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     this.store.dispatch(new AuthActions.TrySignin({username: email, password: password}));
+    //this.store.dispatch(new AuthActions.TrySetApiToken());
   }
 }

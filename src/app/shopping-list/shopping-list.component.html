@@ -5,11 +5,11 @@
     <ul class="list-group">
       <a
         class="list-group-item"
-        tyle="cursor: pointer;"
+        style="cursor: pointer; border-left: 5px solid {{ingredient.color}}"
         *ngFor="let ingredient of (shoppingListState | async).ingredients; let i = index"
         (click)="onEditItem(i)"
       >
-        {{ ingredient.name}} ({{ingredient.amount}})
+        {{ ingredient.ingredient.name}} ({{ingredient.amount}} {{ingredientAmountTypes[ingredient.amountType]}})
       </a>
     </ul>
   </div>

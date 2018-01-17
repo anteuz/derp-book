@@ -20,5 +20,5 @@ phases:
 artifacts:
     files:
         - '**/*'
-    base-directory: 'dist*'
+    base-directory: 'dist/browser*'
     discard-paths: yes

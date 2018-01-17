@@ -12,11 +12,11 @@
           <div class="form-group">
             <label for="name">Name</label>
             <input
-              type               = "text"
-              id                 = "name"
-              class    = "form-control"
-              name               = "name"
-              formControlName    = "name"
+              type="text"
+              id="name"
+              class="form-control"
+              name="name"
+              formControlName="name"
             >
           </div>
         </div>
@@ -26,11 +26,11 @@
           <div class="form-group">
             <label for="imagePath">Image URL</label>
             <input
-              type               = "text"
-              id                 = "imagePath"
-              class    = "form-control"
-              name               = "imagePath"
-              formControlName    = "imagePath"
+              type="text"
+              id="imagePath"
+              class="form-control"
+              name="imagePath"
+              formControlName="imagePath"
               #imagePath
             >
           </div>
@@ -46,33 +46,78 @@
           <div class="form-group">
             <label for="description">Description</label>
             <textarea
-              type               = "text"
-              id                 = "description"
-              class    = "form-control"
-              name               = "description"
-              formControlName    = "description"
+              type="text"
+              id="description"
+              class="form-control"
+              name="description"
+              formControlName="description"
             ></textarea>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12" formArrayName="ingredients" *ngIf="getControls()">
-          <div class="row" *ngFor="let ingredientControl of getControls(); let i = index" [formGroupName]="i" style="margin-top: 10px;">
-            <div class="col-xs-8">
-              <input type="text" class="form-control" formControlName="name">
+          <div class="row" *ngFor="let ingredientControl of getControls(); let i = index" style="margin-top: 10px;"
+               [formGroupName]="i">
+            <div class="col-xs-4 form-group">
+              <label for="amount{{i}}">Ingredient amount</label>
+              <input
+                type="number"
+                id="amount{{i}}"
+                class="form-control"
+                formControlName="amount"
+                name="amount"
+              >
             </div>
-              <div class="col-xs-2">
-                <input type="number" class="form-control" formControlName="amount">
+            <div class="col-xs-4 form-group">
+              <label for="amountType{{i}}">Type of amount</label>
+              <select
+                formControlName="amountType"
+                id="amountType{{i}}"
+                class="form-control"
+                name="amountType"
+              >
+                <option *ngFor="let amountTypeItem of ingredientAmountTypes | keys;" [value]="amountTypeItem.key">
+                  {{amountTypeItem.value}}
+                </option>
+              </select>
+            </div>
+            <div formGroupName="ingredient" class="row col-xs-12">
+              <div class="btn-group col-xs-12" data-toggle="buttons">
+                <label
+                  for="ingredientColor{{i}}{{z}}"
+                  *ngFor="let colorPaletteItem of colorPalette| keys; let z = index"
+                  [ngStyle]="{'background-color': colorPaletteItem.value, 'margin-right' : '5px', 'border-radius' : '5px'}"
+                  class="btn {{recipeForm.get('ingredients').controls[i].get('ingredient').get('ingredientColor').value === colorPaletteItem.key ? 'active' : 'false'}}"
+                >
+                  <input type="radio" id="ingredientColor{{i}}{{z}}" name="ingredientColor"
+                         formControlName="ingredientColor" autocomplete="off" value="{{colorPaletteItem.key}}">
+                  <span class="glyphicon glyphicon-ok"></span>
+                </label>
+              </div>
+            </div>
+            <div formGroupName="ingredient" class="row col-xs-12">
+              <!--  creates ingredient -->
+              <div class="col-xs-10">
+                <label for="ingredientName{{i}}{{z}}">Ingredient name</label>
+                <input
+                  id="ingredientName{{i}}{{z}}"
+                  type="text"
+                  class="form-control"
+                  formControlName="ingredientName"
+                >
               </div>
               <div class="col-xs-2">
-                <button type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">X</button>
+                <label for="delete{{i}}">Remove</label>
+               <button id="delete{{i}}" type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">X</button>
               </div>
-            </div>
+          </div>
+          </div>
           <hr>
           <div class="row col-xs-12">
             <button type="button" class="btn btn-success" (click)="onAddIngredient()">Add ingredient</button>
           </div>
-          </div>
+        </div>
       </div>
     </form>
   </div>

@@ -6,6 +6,8 @@ import {Observable} from 'rxjs/Observable';
 import * as fromRecipe from '../store/recipe.reducers';
 import * as RecipeActions from '../store/recipe.actions';
 import 'rxjs/add/operator/take';
+import {IngredientAmountType} from '../../shared/recipeIngredient.model';
+import {ColorPalette} from '../../shared/ingredient.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -16,6 +18,8 @@ export class RecipeDetailComponent implements OnInit {
 
   recipeState: Observable<fromRecipe.State>;
   id: number;
+  ingredientAmountTypes = IngredientAmountType;
+  ingredientColors = ColorPalette;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -48,5 +52,9 @@ export class RecipeDetailComponent implements OnInit {
   onDeleteRecipe() {
     this.store.dispatch(new RecipeActions.DeleteRecipe(this.id));
     this.router.navigate(['/recipes']);
+  }
+
+  getStyle(ingredientColor: string) {
+    return '5px solid ' + ColorPalette[ingredientColor];
   }
 }

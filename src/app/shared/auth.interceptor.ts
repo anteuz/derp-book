@@ -21,7 +21,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return this.store.select('auth')
       .take(1)
       .switchMap((authState: fromAuth.State) => {
-      const reqClone = req.clone({params: req.params.set('auth', authState.token)});
+        const reqClone = req.clone({params: req.params.set('auth', authState.token)});
+        // for spring-boot backend
+        // const reqClone = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + authState.apiToken)});
       return next.handle(reqClone);
     });
   }

@@ -1,16 +1,17 @@
 import * as ShoppingListActions from './shopping-list.actions';
-import {Ingredient} from '../../shared/ingredient.model';
+import {ColorPalette, Ingredient} from '../../shared/ingredient.model';
+import {IngredientAmountType, RecipeIngredient} from '../../shared/recipeIngredient.model';
 
 export interface State {
-  ingredients: Ingredient[];
-  editedIngredient: Ingredient;
+  ingredients: RecipeIngredient[];
+  editedIngredient: RecipeIngredient;
   editedIngredientIndex: number;
 }
 
 const initialState: State = {
   ingredients: [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 10)
+    new RecipeIngredient(new Ingredient('Apple', ColorPalette.COLOR4), 10, 'PCT'),
+    new RecipeIngredient(new Ingredient('Mango', ColorPalette.COLOR5), 50, 'PCT')
   ],
   editedIngredient: null,
   editedIngredientIndex: -1

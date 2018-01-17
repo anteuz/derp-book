@@ -2,11 +2,13 @@ import * as AuthActions from './auth.actions';
 
 export interface State {
   token: string;
+  apiToken: string;
   authenticated: boolean;
 }
 
 const initialState: State = {
   token: null,
+  apiToken: null,
   authenticated: false
 };
 
@@ -28,6 +30,11 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
       return {
         ...state,
         token: action.payload
+      }
+    case (AuthActions.SET_API_TOKEN):
+      return {
+        ...state,
+        apiToken: action.payload
       }
     default:
       return state;

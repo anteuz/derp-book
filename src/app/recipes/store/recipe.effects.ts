@@ -8,6 +8,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import {Store} from '@ngrx/store';
 import * as fromRecipe from '../store/recipe.reducers';
 import 'rxjs/add/operator/map';
+import {environment} from '../../../environments/environment';
 @Injectable()
 export class RecipeEffects {
   @Effect()
@@ -15,7 +16,7 @@ export class RecipeEffects {
     .ofType(RecipeActions.FETCH_RECIPES)
     .switchMap((action: RecipeActions.FetchRecipes) => {
       return this.http.get<Recipe[]>(
-        'https://derp-kitchen-erp.firebaseio.com/derp.json'
+        environment.recipesApi
       );
     })
     .map(
@@ -39,7 +40,7 @@ export class RecipeEffects {
     .switchMap(([action, state]) => {
       const req = new HttpRequest(
         'PUT',
-        'https://derp-kitchen-erp.firebaseio.com/derp.json',
+        environment.recipesApi,
         state.recipes
       );
       return this.http.request(req);

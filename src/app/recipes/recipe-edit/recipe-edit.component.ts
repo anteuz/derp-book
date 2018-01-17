@@ -5,6 +5,8 @@ import * as RecipeActions from '../store/recipe.actions';
 import * as fromRecipe from '../store/recipe.reducers';
 import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/take';
+import {IngredientAmountType} from '../../shared/recipeIngredient.model';
+import {ColorPalette} from '../../shared/ingredient.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -16,6 +18,8 @@ export class RecipeEditComponent implements OnInit {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
+  ingredientAmountTypes = IngredientAmountType;
+  colorPalette = ColorPalette;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -37,8 +41,12 @@ export class RecipeEditComponent implements OnInit {
   onAddIngredient() {
     (<FormArray>this.recipeForm.get('ingredients')).push(
       new FormGroup({
-        'name': new FormControl(null, Validators.required),
-        'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
+        'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
+        'amountType': new FormControl(IngredientAmountType.PCT, []),
+        'ingredient': new FormGroup({
+          'ingredientName': new FormControl(null, Validators.required),
+          'ingredientColor': new FormControl(ColorPalette.COLOR0, [])
+        })
       })
     );
   }
@@ -63,9 +71,13 @@ export class RecipeEditComponent implements OnInit {
             for (const ingredient of recipe.ingredients) {
               recipeIngredients.push(
                 new FormGroup({
-                  'name': new FormControl(ingredient.name, Validators.required),
-                  'amount': new FormControl(ingredient.amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
-                })
+                  'amount': new FormControl(ingredient.amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
+                  'amountType': new FormControl(ingredient.amountType, []),
+                  'ingredient': new FormGroup({
+                    'ingredientName': new FormControl(ingredient.ingredient.ingredientName, Validators.required),
+                    'ingredientColor': new FormControl(ingredient.ingredient.ingredientColor, [])
+                  })
+                }),
               );
             }
           }
@@ -81,7 +93,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-
+    console.log(this.recipeForm.value);
     if (this.editMode) {
       this.store.dispatch(new RecipeActions.UpdateRecipe({index: this.id, recipe: this.recipeForm.value}));
     } else {
@@ -101,5 +113,12 @@ export class RecipeEditComponent implements OnInit {
 
   getControls() {
     return (<FormArray>this.recipeForm.get('ingredients')).controls;
+  }
+
+  setBackgroundColor(hexColor: string) {
+    console.log(hexColor);
+    const backgroundColor = hexColor;
+    console.log(backgroundColor)
+    return backgroundColor;
   }
 }
