@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="imagePath">Image URL</label>
+            <label for="imagePath">Image link</label>
             <input
               type="text"
               id="imagePath"
@@ -37,8 +37,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
-          <img [src]="imagePath.value" alt="Image preview" class="ing responsive">
+        <div class="col-xs-12 form-group">
+          <img [src]="imagePath.value" alt="Image preview" class="img-responsive">
         </div>
       </div>
       <div class="row">
@@ -59,31 +59,24 @@
         <div class="col-xs-12" formArrayName="ingredients" *ngIf="getControls()">
           <div class="row" *ngFor="let ingredientControl of getControls(); let i = index" style="margin-top: 10px;"
                [formGroupName]="i">
-            <div class="col-xs-4 form-group">
-              <label for="amount{{i}}">Ingredient amount</label>
-              <input
-                type="number"
-                id="amount{{i}}"
-                class="form-control"
-                formControlName="amount"
-                name="amount"
-              >
-            </div>
-            <div class="col-xs-4 form-group">
-              <label for="amountType{{i}}">Type of amount</label>
-              <select
-                formControlName="amountType"
-                id="amountType{{i}}"
-                class="form-control"
-                name="amountType"
-              >
-                <option *ngFor="let amountTypeItem of ingredientAmountTypes | keys;" [value]="amountTypeItem.key">
-                  {{amountTypeItem.value}}
-                </option>
-              </select>
-            </div>
             <div formGroupName="ingredient" class="row col-xs-12">
-              <div class="btn-group col-xs-12" data-toggle="buttons">
+              <!--  creates ingredient -->
+              <div class="col-xs-10 form-group">
+                <label for="ingredientName{{i}}{{z}}">Ingredient name</label>
+                <input
+                  id="ingredientName{{i}}{{z}}"
+                  type="text"
+                  class="form-control"
+                  formControlName="ingredientName"
+                >
+              </div>
+              <div class="col-xs-2 form-group">
+                <label for="delete{{i}}">Remove</label>
+                <button id="delete{{i}}" type="button" class="btn btn-danger active" (click)="onDeleteIngredient(i)"><span class="glyphicon glyphicon-remove active" aria-hidden="true"></span></button>
+              </div>
+            </div>
+            <div formGroupName="ingredient" class="row col-xs-12" style="margin-top: 10px;">
+              <div class="col-xs-10 form-group" data-toggle="buttons">
                 <label
                   for="ingredientColor{{i}}{{z}}"
                   *ngFor="let colorPaletteItem of colorPalette| keys; let z = index"
@@ -96,22 +89,29 @@
                 </label>
               </div>
             </div>
-            <div formGroupName="ingredient" class="row col-xs-12">
-              <!--  creates ingredient -->
-              <div class="col-xs-10">
-                <label for="ingredientName{{i}}{{z}}">Ingredient name</label>
-                <input
-                  id="ingredientName{{i}}{{z}}"
-                  type="text"
-                  class="form-control"
-                  formControlName="ingredientName"
-                >
-              </div>
-              <div class="col-xs-2">
-                <label for="delete{{i}}">Remove</label>
-               <button id="delete{{i}}" type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">X</button>
-              </div>
-          </div>
+            <div class="col-xs-4 form-group">
+              <label for="amount{{i}}">Amount</label>
+              <input
+                type="number"
+                id="amount{{i}}"
+                class="form-control"
+                formControlName="amount"
+                name="amount"
+              >
+            </div>
+            <div class="col-xs-4 form-group">
+              <label for="amountType{{i}}">Type</label>
+              <select
+                formControlName="amountType"
+                id="amountType{{i}}"
+                class="form-control"
+                name="amountType"
+              >
+                <option *ngFor="let amountTypeItem of ingredientAmountTypes | keys;" [value]="amountTypeItem.key">
+                  {{amountTypeItem.value}}
+                </option>
+              </select>
+            </div>
           </div>
           <hr>
           <div class="row col-xs-12">

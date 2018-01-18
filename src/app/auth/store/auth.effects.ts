@@ -94,6 +94,41 @@ export class AuthEffects {
     });
 
   @Effect()
+  authAutoSignin = this.actions$
+    .ofType(AuthActions.TRY_AUTO_SIGNIN)
+    .map((action: AuthActions.TryAutoSigning) => {
+        return action;
+    })
+    .map(() => {
+      let token;
+      const tokenKey = Object.keys(window.localStorage)
+        .filter(it => it.startsWith('firebase:authUser'))[0];
+      const authToken = JSON.parse(localStorage.getItem(tokenKey));
+
+      if (authToken != null) {
+        token = authToken.stsTokenManager.accessToken;
+      }
+      return token;
+    })
+    .mergeMap((token: string) => {
+      this.router.navigate(['/']);
+      return [
+        {
+          type: AuthActions.SIGNIN
+        },
+        {
+          type: AuthActions.SET_TOKEN,
+          payload: token
+        }
+        // ,
+        // {
+        //   type: AuthActions.TRY_SET_API_TOKEN,
+        //   payload: token
+        // }
+      ];
+    });
+
+  @Effect()
   authLogout = this.actions$
     .ofType(AuthActions.TRY_LOGOUT)
     .map((action: AuthActions.TryLogout) => {

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Ingredient} from '../shared/ingredient.model';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import * as fromApp from '../store/app.reducers';
