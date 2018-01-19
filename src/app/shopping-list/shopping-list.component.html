@@ -1,16 +1,36 @@
-<div class="row" >
+<div class="row">
   <div class="col-xs-10">
     <app-shopping-edit></app-shopping-edit>
     <hr>
     <ul class="list-group">
-      <a
+      <li *ngIf="((shoppingListState | async).ingredients | isCollected : false).length == 0" class="list-unstyled">Your list is empty</li>
+      <li *ngFor="let ingredient of (shoppingListState | async).ingredients; let i = index" class="list-unstyled">
+      <span
+        *ngIf="!ingredient.ingredient.isCollected"
         class="list-group-item"
-        style="cursor: pointer; border-left: 5px solid {{ingredient.color}}"
-        *ngFor="let ingredient of (shoppingListState | async).ingredients; let i = index"
-        (click)="onEditItem(i)"
+        [style.border-left]="getStyle(ingredient.ingredient.ingredientColor)"
       >
-        {{ ingredient.ingredient.name}} ({{ingredient.amount}} {{ingredientAmountTypes[ingredient.amountType]}})
-      </a>
+      <span
+        style="cursor: pointer;"
+        (click)="onCheckCollected(i)"
+      >
+        {{ ingredient.ingredient.ingredientName }} ({{ ingredient.amount }} {{ ingredientAmountTypes[ingredient.amountType] }})
+      </span>
+        <span class="badge" (click)="onEditItem(i)">Edit</span>
+      </span>
+      </li>
+    </ul>
+    <ul class="well list-unstyled" *ngIf="((shoppingListState | async).ingredients | isCollected : true).length > 0">
+      <li>Number of collected items: {{ ((shoppingListState | async).ingredients | isCollected : true).length }}</li>
+      <li *ngFor="let recipeIngredient of (shoppingListState | async).ingredients; let z = index"
+          class=""
+      >
+      <span *ngIf="recipeIngredient.ingredient.isCollected">
+        <s (click)="onUndoCollected(recipeIngredient)">
+          {{ recipeIngredient.ingredient.ingredientName }} ({{ recipeIngredient.amount }} {{ ingredientAmountTypes[recipeIngredient.amountType] }})
+        </s>
+      </span>
+      </li>
     </ul>
   </div>
 </div>

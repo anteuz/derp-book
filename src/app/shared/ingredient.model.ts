@@ -10,5 +10,8 @@ export enum ColorPalette {
 }
 
 export class Ingredient {
+  isCollected: boolean = false;
+
   constructor(public ingredientName: string, public ingredientColor: string) {}
+
 }

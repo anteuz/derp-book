@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import * as fromApp from '../store/app.reducers';
 import * as ShoppingListActions from './store/shopping-list.actions';
 import {IngredientAmountType, RecipeIngredient} from '../shared/recipeIngredient.model';
+import {ColorPalette} from '../shared/ingredient.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -26,5 +27,14 @@ export class ShoppingListComponent implements OnInit {
   onEditItem(index: number) {
     this.store.dispatch(new ShoppingListActions.StartEdit(index));
   }
+  onCheckCollected(index: number) {
+    this.store.dispatch(new ShoppingListActions.CollectIngredient(index));
+  }
+  onUndoCollected(ingredient: RecipeIngredient) {
+    this.store.dispatch(new ShoppingListActions.ReturnIngredient(ingredient));
 
+  }
+  getStyle(ingredientColor: string) {
+    return '5px solid ' + ColorPalette[ingredientColor];
+  }
 }
