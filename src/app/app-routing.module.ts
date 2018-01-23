@@ -6,6 +6,7 @@ import {AuthGuard} from './auth/auth.guard';
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule', canLoad: [AuthGuard]},
+  {path: 'weekly-menu', loadChildren: './weekly-menu/weekly-menu.module#WeeklyMenuModule', canLoad: [AuthGuard]},
   {path: 'shopping-list', loadChildren: './shopping-list/shopping-list.module#ShoppingListModule', canLoad: [AuthGuard]}
 ];
 

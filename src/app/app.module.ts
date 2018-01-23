@@ -17,6 +17,7 @@ import { environment } from '../environments/environment';
 
 import { AuthEffects } from './auth/store/auth.effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgDragDropModule} from 'ng-drag-drop';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'my-universal-app'}),
+    NgDragDropModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    ShoppingListModule,
     AuthModule,
     CoreModule,
     StoreModule.forRoot(reducers),

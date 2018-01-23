@@ -1,7 +1,7 @@
 import {Actions, Effect} from '@ngrx/effects';
 import * as RecipeActions from '../store/recipe.actions';
 import 'rxjs/add/operator/switchMap';
-import {Recipe} from '../recipe.model';
+import {Recipe} from '../../shared/recipe.model';
 import {HttpClient, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/withLatestFrom';

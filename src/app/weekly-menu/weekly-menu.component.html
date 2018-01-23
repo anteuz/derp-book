@@ -1,0 +1,30 @@
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card card-outline-primary mb-3">
+      <div class="card-header card-inverse card-primary">Selected recipes</div>
+      <div class="card-block scroll-list">
+        <ul class="list-group">
+          <li draggable *ngFor="let item of (weeklyMenuState | async).unSortedRecipes; let i = index" [dragScope]="'weekly-menu'" [dragData]="item" class="list-group-item">
+            <app-recipe-card [recipe]="item"></app-recipe-card>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="col-sm-3" *ngFor="let day of list2 | keys2; let i = index">-->
+    <div class="col-sm-3" *ngFor="let menuItem of (weeklyMenuState | async).weeklyMenu.menuList; let i = index">
+    <div class="card card-outline-primary mb-3" droppable [dropScope]="'weekly-menu'"
+         (onDrop)="onDrop($event, i, menuItem.day)">
+      <div class="card-header card-inverse card-primary">{{ menuItem.day }}</div>
+      <div class="card-block scroll-list">
+        <ul class="list-group">
+          <li *ngFor="let item of menuItem.menu" class="list-group-item">
+            <app-recipe-card [recipe]="item"></app-recipe-card>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

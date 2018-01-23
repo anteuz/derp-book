@@ -1,4 +1,4 @@
-import {Recipe} from '../recipe.model';
+import {Recipe} from '../../shared/recipe.model';
 import {ColorPalette, Ingredient} from '../../shared/ingredient.model';
 import * as RecipeActions from '../store/recipe.actions';
 import * as fromApp from '../../store/app.reducers';

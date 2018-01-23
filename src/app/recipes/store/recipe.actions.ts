@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Recipe} from '../recipe.model';
+import {Recipe} from '../../shared/recipe.model';
 
 export const SET_RECIPES = 'SET_RECIPES';
 export const ADD_RECIPE = 'ADD_RECIPE';

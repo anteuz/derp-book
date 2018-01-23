@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  loginApi: 'http://localhost:8080/api/auth',
-  recipesApi: 'http://localhost:8080/api/recipes',
-  ingredientApi: 'http://localhost:8080/api/ingredients',
-  shoppingListApi: 'http://localhost:8080/api/shoppingList'
+  loginApi: 'https://derp-kitchen-erp.firebaseio.com/derp.json',
+  recipesApi: 'https://derp-kitchen-erp.firebaseio.com/derp.json',
+  ingredientApi: 'https://derp-kitchen-erp.firebaseio.com/derp.json',
+  shoppingListApi: 'https://derp-kitchen-erp.firebaseio.com/derp.json'
 };
