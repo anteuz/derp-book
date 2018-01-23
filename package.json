@@ -34,6 +34,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0-beta.5",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.3",
+    "drag-drop-polyfill": "^2.0.0-rc.0",
     "express": "^4.16.2",
     "firebase": "4.8.0",
     "ng-drag-drop": "^4.0.0",
